@@ -7,6 +7,11 @@ import sys
 import traceback
 import importlib.util
 
+#====================================================
+#This imports the multiprocessing library we're using
+#====================================================
+import multiprocess as mp
+
 from .scene.scene import Scene
 from .utils.sounds import play_error_sound
 from .utils.sounds import play_finish_sound
@@ -146,8 +151,15 @@ def get_module(file_name):
     else:
         module_name = file_name.replace(os.sep, ".").replace(".py", "")
         spec = importlib.util.spec_from_file_location(module_name, file_name)
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
+
+        #module = importlib.util.module_from_spec(spec)
+        #spec.loader.exec_module(module)
+        #====================================================================================
+        #The spec loader had to be exchanged for a full import
+        #If this isn't done the full module isn't accessible and the classes can't be pickled
+        #====================================================================================
+
+        module = importlib.import_module(module_name)
         return module
 
 
@@ -171,8 +183,18 @@ def main(config):
     for SceneClass in scene_classes_to_render:
         try:
             # By invoking, this renders the full scene
-            scene = SceneClass(**scene_kwargs)
-            open_file_if_needed(scene.file_writer, **config)
+            #scene = SceneClass(**scene_kwargs)
+
+            #====================================================
+            #This starts a rendering process, one for every scene
+            #====================================================
+            x=mp.Process(target=SceneClass, kwargs=scene_kwargs )
+            x.start()
+
+            #====================================================================================
+            #open_file_if_needed doesn't work like this anymore, and it doesn't need a fix either
+            #====================================================================================
+            #open_file_if_needed(scene.file_writer, **config)
             if config["sound"]:
                 play_finish_sound()
         except Exception:
