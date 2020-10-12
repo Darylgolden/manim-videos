@@ -10,7 +10,7 @@ import os
 import configparser
 from ast import literal_eval
 import pathlib
-
+import csv
 
 from .config_utils import _run_config, _paths_config_file, finalized_configs_dict
 from ..utils.file_ops import guarantee_existence, open_file
@@ -18,13 +18,16 @@ from ..utils.file_ops import guarantee_existence, open_file
 from rich.console import Console
 from rich.style import Style
 from rich.errors import StyleSyntaxError
+from rich.table import Table
 
-__all__ = ["register", "list"]
+__all__ = ["install", "list_addons","remove"]
 
 ADDON_DIR = pathlib.Path("..") / ".." / "addons"
 
 if not ADDON_DIR.exists():
     os.mkdir(ADDON_DIR)
+
+console = Console()
 
 
 def value_from_string(value):
@@ -114,7 +117,7 @@ def replace_keys(default):
     return default
 
 
-def register(repo_name: str, hostname: str = "github"):
+def install(repo_name: str, hostname: str = "github"):
     link_starter = (
         "https://github.com/"
         if hostname == "github"
@@ -127,6 +130,8 @@ def register(repo_name: str, hostname: str = "github"):
     split_repo_name = repo_name.split("/")
 
     user, repo = split_repo_name[0], split_repo_name[1]
+
+    old_curr_dir = os.getcwd()
 
     os.chdir(ADDON_DIR)
     os.system(f"git clone {link_starter+repo_name}")
@@ -148,5 +153,53 @@ def register(repo_name: str, hostname: str = "github"):
         with open(imports_file, "a") as _file:
             _file.append(f"from .addons.{repo} import *")
 
-    Console().print(f"Done! The objects in addon {repo} by {user} can now be accessed via manim")
+    console.print(
+        f"Done! The objects in addon {repo} by {user} can now be accessed via manim"
+    )
 
+    _add_addon_to_database(repo, user, link_starter + repo_name)
+
+    os.chdir(old_curr_dir)
+
+
+def _add_addon_to_database(repo, creator, link):
+    with open(ADDON_DIR / "addons.csv", "w") as _file:
+        writer = csv.writer(_file)
+        if _file.readlines() == []:
+            writer.writerow(["Name", "Creator", "Link to repository"])
+
+        writer.writerow([repo, creator, link])
+    console.print(f"Addon {repo} added to database.")
+
+
+def list_addons():
+    with open(ADDON_DIR / "addons.csv", "r") as _file:
+        reader = csv.reader(_file)
+
+        table = Table()
+
+        table.add_column("Name")
+        table.add_column("Creator")
+        table.add_column("Link to Repository")
+
+        for row in reader:
+            table.add_row(*row)
+
+        console.print(table)
+
+
+def remove(name: str):
+    imports_file = pathlib.Path("..") / "__init__.py"
+
+    with open(imports_file, "r+") as _file:
+        lines = _file.readlines()
+
+        lines.remove(f"from .addons.{name} import *")
+
+        _file.seek(0)
+
+        _file.writelines(lines)
+
+    os.rmdir(ADDON_DIR / name)
+
+    console.print(f"Addon {name} successfully removed.")
