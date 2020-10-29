@@ -40,10 +40,7 @@ def seek_full_path_from_defaults(file_name, default_dir, extensions):
     for path in possible_paths:
         if os.path.exists(path):
             return path
-    error = "From: {}, could not find {} at either of these locations: {}".format(
-        os.getcwd(), self.file_name, possible_paths
-    )
-    raise IOError(error)
+    raise IOError("File {} not Found".format(file_name))
 
 
 def modify_atime(file_path):
