@@ -1,19 +1,5 @@
 from manim import *
 
-a_start = 0.5
-a_end = 0.1
-a_time = 10
-b_start = 1
-b_end = 7
-b_time = 20
-
-basic_preamble = r"""
-\usepackage[english]{babel}
-\usepackage{amsmath}
-\usepackage{amssymb}
-"""
-
-
 def weierstrass(a,b,x):
 	y = 0
 	for i in range(100):
