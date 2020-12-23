@@ -12,9 +12,6 @@ class Test(ThreeDScene):
 	def GraphFunction(self, u, v):
 		return np.array([u, v, 2+0.2*(np.cos(u)+np.sin(v))])
 
-	def GraphFunction(self, u, v):
-		return np.array([u, v, 2+0.2*(np.cos(u)+np.sin(v))])
-
 	def xyfunc(self, u, v):
 		return np.array([u, v, 0])
 
