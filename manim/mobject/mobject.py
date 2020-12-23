@@ -340,7 +340,7 @@ class Mobject(Container):
         if len(kwargs) == 0:
             kwargs["about_point"] = ORIGIN
         self.apply_points_function_about_point(
-            lambda points: np.apply_along_axis(function, 1, points), **kwargs
+            lambda points: np.apply_along_axis(function, 1, points, **kwargs), **kwargs
         )
         return self
 
@@ -415,7 +415,7 @@ class Mobject(Container):
             about_point = self.get_critical_point(about_edge)
         for mob in self.family_members_with_points():
             mob.points -= about_point
-            mob.points = func(mob.points)
+            mob.points = func(mob.points, **kwargs)
             mob.points += about_point
         return self
 

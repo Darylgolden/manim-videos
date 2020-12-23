@@ -1,6 +1,6 @@
 """Three-dimensional mobjects."""
 
-__all__ = ["ThreeDVMobject", "ParametricSurface", "Sphere", "Cube", "Prism"]
+__all__ = ["ThreeDVMobject", "ParametricSurface", "Sphere", "Cube", "Prism", "PlaneXY", "PlaneXZ", "PlaneYZ"]
 
 from ..constants import *
 from ..mobject.geometry import Square
@@ -40,7 +40,7 @@ class ParametricSurface(VGroup):
         VGroup.__init__(self, **kwargs)
         self.func = func
         self.setup_in_uv_space()
-        self.apply_function(lambda p: func(p[0], p[1]))
+        self.apply_function(lambda p: func(p[0], p[1], **kwargs))
         if self.should_make_jagged:
             self.make_jagged()
 
@@ -150,3 +150,29 @@ class Prism(Cube):
         Cube.generate_points(self)
         for dim, value in enumerate(self.dimensions):
             self.rescale_to_fit(value, dim, stretch=True)
+
+class PlaneXY(ParametricSurface):
+    CONFIG = {}
+    def __init__(self, **kwargs):
+        ParametricSurface.__init__(self, self.func, **kwargs)
+        self.shift(np.array([0, 0, self.k]))
+
+    def func(self, u, v):
+        return np.array([u, v, 0])
+
+class PlaneXZ(ParametricSurface):
+    def __init__(self, **kwargs):
+        ParametricSurface.__init__(self, self.func, **kwargs)
+        self.shift(np.array([0, self.k, 0]))
+
+    def func(self, u, v):
+        return np.array([u, 0, v])
+
+class PlaneYZ(ParametricSurface):
+    def __init__(self, **kwargs):
+        ParametricSurface.__init__(self, self.func, **kwargs)
+        self.shift(np.array([self.k, 0, 0]))
+
+    def func(self, u, v):
+        return np.array([0, u, v])
+

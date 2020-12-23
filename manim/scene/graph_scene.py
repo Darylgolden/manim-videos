@@ -508,7 +508,7 @@ class GraphScene(Scene):
         if end_color is None:
             end_color = self.default_riemann_end_color
         rectangles = VGroup()
-        x_range = np.arange(x_min, x_max, dx)
+        x_range = np.arange(x_min, x_max, dx) #list of x values
         colors = color_gradient([start_color, end_color], len(x_range))
         for x, color in zip(x_range, colors):
             if input_sample_type == "left":
