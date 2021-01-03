@@ -71,8 +71,8 @@ class Test(ThreeDScene):
 
 		# vol = self.get_volume(self.GraphFunction, -2, 2, 0, 4, wall_color = YELLOW, floor_color = BLUE, fill_opacity=0.3, stroke_width=0)
 		self.add(axes, vol, surf)
-		self.play(x_val.set_value, x_end, rate_func = smooth, run_time = x_time)
-		self.play(y_val.set_value, y_end, rate_func = smooth, run_time = y_time)
+		self.play(x_val.animate.set_value(x_end), rate_func = smooth, run_time = x_time)
+		self.play(y_val.animate.set_value(y_end), rate_func = smooth, run_time = y_time)
 		self.wait()
 
 	# def construct(self):
