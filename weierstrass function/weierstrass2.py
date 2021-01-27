@@ -1,5 +1,19 @@
 from manim import *
 
+a_start = 0.5
+a_end = 0.1
+a_time = 10
+b_start = 1
+b_end = 7
+b_time = 20
+
+basic_preamble = r"""
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+"""
+
+
 def weierstrass(a,b,x):
 	y = 0
 	for i in range(100):
@@ -10,14 +24,16 @@ def func_updater(func):
 	func = FunctionGraph(lambda x: weierstrass(a,b_value.get_value(),x), x_min = -4, x_max=4, step_size=0.0001)
 
 class Weierstrass(GraphScene):
-	CONFIG = {
-    	"y_max" : 2,
-    	"y_min" : -2,
-    	"x_max" : 4,
-    	"x_min" : -4,
-    	"x_axis_width" : 20,
-    	"graph_origin" : 0*DOWN
-	}
+	def __init__(self, **kwargs):
+		GraphScene.__init__(
+			self,
+			y_max = 2,
+			y_min = -2,
+			x_max = 4,
+			x_min = -4,
+			x_axis_width = 20,
+			graph_origin = 0*DOWN
+		)
 
 	def construct(self):
 		self.setup_axes(animate=True)
@@ -46,6 +62,6 @@ class Weierstrass(GraphScene):
 		self.play(Write(equation),run_time=2)
 		self.wait(0.5)
 		self.play(Write(labels))
-		self.play(b_value.set_value, b_end, rate_func=smooth, run_time=b_time)
-		self.play(a_value.set_value, a_end, rate_func=smooth, run_time=a_time)
+		self.play(b_value.animate.set_value(b_end), rate_func=smooth, run_time=b_time)
+		self.play(a_value.animate.set_value(a_end), rate_func=smooth, run_time=a_time)
 		self.wait()

@@ -21,12 +21,12 @@ class Test(ThreeDScene):
 	def yzfunc(self, u, v):
 		return np.array([0, u, v])
 
-	def xyrect(self, offset, **kwargs):
+	def xyrect(self, offset, u_min = 0, u_max = 1, height = 1, **kwargs):
 		obj = ParametricSurface(self.xyfunc, **kwargs)
 		obj.shift(np.array([0, 0, offset]))
 		return obj
 
-	def xzrect(self, offset, **kwargs):
+	def xzrect(self, offset, u_min = 0, u_max = 1, height = 1,**kwargs):
 		obj = ParametricSurface(self.xzfunc, **kwargs)
 		obj.shift(np.array([0, offset, 0]))
 		return obj
