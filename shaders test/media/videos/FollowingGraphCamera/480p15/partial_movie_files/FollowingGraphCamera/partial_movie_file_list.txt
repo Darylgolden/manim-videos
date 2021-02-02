@@ -1,0 +1,4 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/daryl/manim/shaders test/media/videos/FollowingGraphCamera/480p15/partial_movie_files/FollowingGraphCamera/1650531509_1008259080_812321836.mp4'
+file 'file:C:/Users/daryl/manim/shaders test/media/videos/FollowingGraphCamera/480p15/partial_movie_files/FollowingGraphCamera/3031854926_2669286935_434440962.mp4'
+file 'file:C:/Users/daryl/manim/shaders test/media/videos/FollowingGraphCamera/480p15/partial_movie_files/FollowingGraphCamera/1461993642_2644343726_2780148531.mp4'

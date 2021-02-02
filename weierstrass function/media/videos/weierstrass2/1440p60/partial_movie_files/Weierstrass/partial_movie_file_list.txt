@@ -1,0 +1,10 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/daryl/manim/weierstrass function/media/videos/weierstrass2/1440p60/partial_movie_files/Weierstrass/1825508311_3704977366_1307646578.mp4'
+file 'file:C:/Users/daryl/manim/weierstrass function/media/videos/weierstrass2/1440p60/partial_movie_files/Weierstrass/646776371_4245892105_2663866809.mp4'
+file 'file:C:/Users/daryl/manim/weierstrass function/media/videos/weierstrass2/1440p60/partial_movie_files/Weierstrass/646776371_1-0_2946140402.mp4'
+file 'file:C:/Users/daryl/manim/weierstrass function/media/videos/weierstrass2/1440p60/partial_movie_files/Weierstrass/646776371_1236666082_753902066.mp4'
+file 'file:C:/Users/daryl/manim/weierstrass function/media/videos/weierstrass2/1440p60/partial_movie_files/Weierstrass/646776371_0-5_4111744777.mp4'
+file 'file:C:/Users/daryl/manim/weierstrass function/media/videos/weierstrass2/1440p60/partial_movie_files/Weierstrass/646776371_1739467788_1581856073.mp4'
+file 'file:C:/Users/daryl/manim/weierstrass function/media/videos/weierstrass2/1440p60/partial_movie_files/Weierstrass/646776371_2185412103_2872393530.mp4'
+file 'file:C:/Users/daryl/manim/weierstrass function/media/videos/weierstrass2/1440p60/partial_movie_files/Weierstrass/646776371_3856047695_2455789527.mp4'
+file 'file:C:/Users/daryl/manim/weierstrass function/media/videos/weierstrass2/1440p60/partial_movie_files/Weierstrass/646776371_1-0_577868206.mp4'

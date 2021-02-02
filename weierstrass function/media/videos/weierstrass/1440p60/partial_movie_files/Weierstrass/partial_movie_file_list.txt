@@ -1,0 +1,2 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/daryl/manim/weierstrass function/media/videos/weierstrass/1440p60/partial_movie_files/Weierstrass/1825508311_1-0_2397785423.mp4'
